@@ -19,7 +19,7 @@ import com.curiouslabs.model.Menu;
 import com.curiouslabs.util.Datasource;
 
 /**
- * @author hadi
+ * @author Dio
  *
  * Aug 16, 2016
  */
@@ -33,18 +33,41 @@ public class MenuDao implements GenericDao<Menu>{
 	
 	public List<Menu> getParentMenu() {
 
-		String sql = "select * from menu where parent_id is null";
+		String query = "select * from menu where parent_id is null";
+		
+		List<Menu> result = new ArrayList<Menu>();
+		
+		try{
+			run.query(query, new ResultSetHandler<List<Menu>>(){
 
-		List results = new ArrayList<>();
-		try {
-			results = (List) run.query(sql, new MapListHandler());
-			for (int i = 0; i < results.size(); i++) {
-				System.out.println(results.get(i));
-			}
-		} catch (SQLException e) {
+				@Override
+				public List<Menu> handle(ResultSet rs) throws SQLException {
+					int index = 0;
+					Menu menu;
+					ConfigMenu cm;
+					while(rs.next()){
+						menu = new MenuMapper().mapRow(rs, index);
+						result.add(menu);
+					}
+				return result;
+				}
+				
+				
+			});
+		} catch (SQLException e){
 			e.printStackTrace();
 		}
-		return results;
+//		List results = new ArrayList<>();
+//		try {
+//			results = (List) run.query(sql, new MapListHandler());
+//			for (int i = 0; i < results.size(); i++) {
+//				System.out.println(results.get(i));
+//			}
+//		} catch (SQLException e) {
+//			e.printStackTrace();
+//		}
+//		return results;
+		return result;
 	}
 	
 	public List<Menu> getChildMenu(int parentId){
