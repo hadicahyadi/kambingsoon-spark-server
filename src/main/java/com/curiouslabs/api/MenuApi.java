@@ -16,13 +16,14 @@ import static spark.Spark.*;
  *
  * Aug 16, 2016
  */
-public class MenuApi {
+public class MenuApi extends GenericApi{
 	
 	private MenuDao menuDao;
-	private String BASE_ROUTE = "menu";
-	private Gson gson = new Gson();
 	
-	public MenuApi(){
+	/*
+	 * @param BASE_ROUTE
+	 */
+	public MenuApi(String BASE_ROUTE){
 		menuDao = new MenuDao();
 		
 		get(BASE_ROUTE+"/getParentMenu", new Route(){

@@ -23,7 +23,7 @@ import com.curiouslabs.util.Datasource;
  *
  * Aug 16, 2016
  */
-public class MenuDao{
+public class MenuDao implements GenericDao<Menu>{
 	
 	private QueryRunner run;
 	
@@ -31,7 +31,7 @@ public class MenuDao{
 		run = new QueryRunner(Datasource.getConnection());
 	}
 	
-	public List getParentMenu() {
+	public List<Menu> getParentMenu() {
 
 		String sql = "select * from menu where parent_id is null";
 
@@ -47,7 +47,8 @@ public class MenuDao{
 		return results;
 	}
 	
-	public List getChildMenu(int parentId){
+	public List<Menu> getChildMenu(int parentId){
+		
 		String query = "select * from menu m "
 				+ " where m.parent_id ="+parentId;
 
@@ -77,6 +78,7 @@ public class MenuDao{
 				String configQuery = "select * from config_menu where menu_id = "+m.getId();
 				run.query(configQuery, new ResultSetHandler<List<Menu>>(){
 					List<ConfigMenu> configResults = new ArrayList<ConfigMenu>();
+					
 					@Override
 					public List<Menu> handle(ResultSet rs) throws SQLException {
 						int index = 0;
@@ -97,6 +99,26 @@ public class MenuDao{
 			e.printStackTrace();
 		}
 		return results;
+	}
+
+	/* (non-javadoc)
+	 * 
+	 * @see com.curiouslabs.dao.GenericDao#save(java.lang.Object)
+	 */
+	@Override
+	public Menu save(Menu object) {
+		// TODO Auto-generated method stub
+		return null;
+	}
+
+	/* (non-javadoc)
+	 * 
+	 * @see com.curiouslabs.dao.GenericDao#getAll()
+	 */
+	@Override
+	public List<Menu> getAll() {
+		// TODO Auto-generated method stub
+		return null;
 	}
 
 }

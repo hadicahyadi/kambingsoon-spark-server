@@ -25,7 +25,6 @@ public class Datasource {
         try {
         	Properties props = new Properties();
             FileInputStream fis = null;
-//            fis = new FileInputStream("jdbc.properties");
             fis = new FileInputStream(new ClassPathResource("jdbc.properties").getFile().getAbsolutePath());
             props.load(fis);
             String url = props.getProperty("jdbc.url");

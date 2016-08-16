@@ -46,9 +46,11 @@ public class Main {
 	public static void main(String args[]){
 		port(8080); // Spark will run on port 8080
 		enableCORS("Origin", "GET,PUT,POST", "Content-Type, Accept, X-Requested-With, remember-me");
+		
 		// --- Add all api constructor here
-		new CategoryApi();
-		new MenuApi();
+		new CategoryApi("category");
+		new MenuApi("menu");
+		
 		get("/", (request,response) -> "Hello World");
 	}
 	

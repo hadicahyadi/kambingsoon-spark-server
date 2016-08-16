@@ -14,6 +14,7 @@ public class ConfigMenu extends BaseModel{
 	private int qty;
 	private String unit;
 	private int price;
+	
 	public int getMenuId() {
 		return menuId;
 	}

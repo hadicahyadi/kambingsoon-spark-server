@@ -10,6 +10,7 @@ import spark.Response;
 import spark.Route;
 
 import com.curiouslabs.dao.CategoryDao;
+import com.curiouslabs.model.Category;
 import com.google.gson.Gson;
 
 import static spark.Spark.*;
@@ -17,22 +18,27 @@ import static spark.Spark.*;
 /**
  * @author hadi
  *
- * Aug 15, 2016
+ *         Aug 15, 2016
  */
-public class CategoryApi{
-	
+public class CategoryApi extends GenericApi{
+
+//	public String BASE_ROUTE = "category";
+	public Gson gson = new Gson();
 	private CategoryDao categoryDao;
-	private String BASE_ROUTE = "category";
-	private Gson gson = new Gson();
-	
-	public CategoryApi(){
-		categoryDao = new CategoryDao();
+
+	/**
+	 * @param BASE_ROUTE
+	 */
+	public CategoryApi(String BASE_ROUTE) {
 		
-		get(BASE_ROUTE+"/getAll",new Route() {
-			
+		categoryDao = new CategoryDao();
+
+		get(BASE_ROUTE + "/getAll", new Route() {
+
 			@Override
-			public Object handle(Request request, Response response) throws Exception {
-				
+			public Object handle(Request request, Response response)
+					throws Exception {
+
 				return gson.toJson(categoryDao.getall());
 			}
 		});
