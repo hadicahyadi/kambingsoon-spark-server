@@ -7,6 +7,7 @@ import static spark.Spark.*;
 
 import com.curiouslabs.api.CategoryApi;
 import com.curiouslabs.api.MenuApi;
+import com.curiouslabs.api.SalesOrderApi;
 
 
 /**
@@ -50,6 +51,7 @@ public class Main {
 		// --- Add all api constructor here
 		new CategoryApi("category");
 		new MenuApi("menu");
+		new SalesOrderApi("salesOrder");
 		
 		get("/", (request,response) -> "Hello World");
 	}
