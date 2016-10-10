@@ -5,8 +5,15 @@ package com.curiouslabs;
 
 import static spark.Spark.*;
 
+import java.util.HashMap;
+
 import com.curiouslabs.api.CategoryApi;
 import com.curiouslabs.api.MenuApi;
+
+import spark.Filter;
+import spark.Request;
+import spark.Response;
+import spark.Spark;
 
 
 /**
@@ -42,11 +49,33 @@ public class Main {
 	        response.type("application/json");
 	    });
 	}
+	
+	private static final HashMap<String, String> corsHeaders = new HashMap<String, String>();
+
+	static {
+		corsHeaders.put("Access-Control-Allow-Methods", "GET,PUT,POST,DELETE,OPTIONS");
+		corsHeaders.put("Access-Control-Allow-Origin", "*");
+		corsHeaders.put("Access-Control-Allow-Headers",
+				"Content-Type,Authorization,X-Requested-With,Content-Length,Accept,Origin,");
+		corsHeaders.put("Access-Control-Allow-Credentials", "true");
+	}
+
+	public final static void apply() {
+		Filter filter = new Filter() {
+			@Override
+			public void handle(Request request, Response response) throws Exception {
+				corsHeaders.forEach((key, value) -> {
+					response.header(key, value);
+				});
+			}
+		};
+		Spark.after(filter);
+	}
 
 	public static void main(String args[]){
 		port(8080); // Spark will run on port 8080
-		enableCORS("Origin", "GET,PUT,POST", "Content-Type, Accept, X-Requested-With, remember-me");
-		
+//		enableCORS("Origin", "GET,PUT,POST", "Content-Type, Accept, X-Requested-With, remember-me");
+		apply();
 		// --- Add all api constructor here
 		new CategoryApi("category");
 		new MenuApi("menu");

@@ -21,6 +21,7 @@ public class MenuMapper {
 		menu.setParentId(rs.getInt(++index));
 		menu.setMenuName(rs.getString(++index));
 		menu.setImageName(rs.getString(++index));
+		menu.setPrice(rs.getBigDecimal(++index));
 		menu.setDescription(rs.getString(++index));
 		menu.setCategoryId(rs.getInt(++index));
 		return menu;

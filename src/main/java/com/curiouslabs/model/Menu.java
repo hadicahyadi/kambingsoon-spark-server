@@ -3,6 +3,7 @@
  */
 package com.curiouslabs.model;
 
+import java.math.BigDecimal;
 import java.util.List;
 
 /**
@@ -15,6 +16,7 @@ public class Menu extends BaseModel{
 	private int parentId;
 	private String menuName;
 	private String imageName;
+	private BigDecimal price;
 	private String description;
 	private int categoryId;
 	
@@ -22,6 +24,12 @@ public class Menu extends BaseModel{
 	private List<ConfigMenu> configMenu;
 	
 	
+	public BigDecimal getPrice() {
+		return price;
+	}
+	public void setPrice(BigDecimal price) {
+		this.price = price;
+	}
 	public int getParentId() {
 		return parentId;
 	}
