@@ -17,11 +17,7 @@ import com.curiouslabs.model.Category;
 import com.curiouslabs.util.Datasource;
 import com.curiouslabs.util.StateBeanProcessor;
 
-/**
- * @author hadi
- *
- *         Aug 15, 2016
- */
+
 public class CategoryDao implements GenericDao<Category> {
 
 	private QueryRunner run;
@@ -36,9 +32,9 @@ public class CategoryDao implements GenericDao<Category> {
 	 * @see com.curiouslabs.dao.GenericDao#save(java.lang.Object)
 	 */
 	@Override
-	public Category save(Category object) {
+	public int save(Category object) {
 		// TODO Auto-generated method stub
-		return null;
+		return 0;
 	}
 
 	/*

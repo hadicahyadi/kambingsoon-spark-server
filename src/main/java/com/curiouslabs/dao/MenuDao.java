@@ -129,9 +129,9 @@ public class MenuDao implements GenericDao<Menu>{
 	 * @see com.curiouslabs.dao.GenericDao#save(java.lang.Object)
 	 */
 	@Override
-	public Menu save(Menu object) {
+	public int save(Menu object) {
 		// TODO Auto-generated method stub
-		return null;
+		return 0;
 	}
 
 	/* (non-javadoc)

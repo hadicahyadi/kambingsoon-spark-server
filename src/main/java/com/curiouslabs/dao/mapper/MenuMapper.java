@@ -8,11 +8,6 @@ import java.sql.SQLException;
 
 import com.curiouslabs.model.Menu;
 
-/**
- * @author hadi
- *
- * Aug 16, 2016
- */
 public class MenuMapper {
 	
 	public Menu mapRow(ResultSet rs, int index) throws SQLException{

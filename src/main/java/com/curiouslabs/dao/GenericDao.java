@@ -12,7 +12,7 @@ import java.util.List;
  */
 public interface GenericDao<T> {
 	
-	public T save(T object);
+	public int save(T object);
 	
 	public List<T> getAll();
 
