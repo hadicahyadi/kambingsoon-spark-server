@@ -11,6 +11,7 @@ public class SalesOrder extends BaseModel{
 		private int discount;
 		private BigDecimal totalNett;
 		private int tableNo;
+		
 		public Date getTransactionDate() {
 			return transactionDate;
 		}
