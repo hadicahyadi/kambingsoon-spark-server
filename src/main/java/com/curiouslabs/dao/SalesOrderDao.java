@@ -32,6 +32,7 @@ public class SalesOrderDao implements GenericDao<SalesOrder> {
 		}catch(Exception e){
 			e.printStackTrace();
 		}
+		
 		return update;
 		
 	}

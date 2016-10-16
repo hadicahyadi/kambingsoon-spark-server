@@ -13,7 +13,6 @@ public class SalesOrderApi extends GenericApi {
 	
 	private SalesOrderDao salesOrderDao;
 	
-	
 	public SalesOrderApi(String BASE_ROUTE){
 		salesOrderDao = new SalesOrderDao();
 		
