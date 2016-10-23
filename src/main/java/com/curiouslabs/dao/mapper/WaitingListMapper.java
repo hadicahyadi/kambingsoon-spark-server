@@ -10,7 +10,7 @@ public class WaitingListMapper {
 	public WaitingList mapRow(ResultSet rs, int index) throws SQLException
 	{
 		WaitingList waitinglist = new WaitingList();
-		waitinglist.setId(rs.getInt(++index));
+		waitinglist.setId(rs.getLong(++index));
 		waitinglist.setGuestName(rs.getString(++index));
 		waitinglist.setGuestCount(rs.getString(++index));
 		

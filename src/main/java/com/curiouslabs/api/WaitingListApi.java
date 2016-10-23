@@ -25,7 +25,7 @@ public class WaitingListApi extends GenericApi {
 				Gson gson = new Gson();
 				WaitingList waitingList = gson.fromJson(request.body(), WaitingList.class);
 				
-				int result = waitingListDao.save(waitingList);
+				Long result = waitingListDao.save(waitingList);
 				
 				return "{\"result\":"+result+"}";
 			}

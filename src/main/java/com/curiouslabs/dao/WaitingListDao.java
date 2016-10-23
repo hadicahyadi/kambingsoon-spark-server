@@ -3,6 +3,7 @@ import java.util.List;
 
 import org.apache.commons.dbutils.QueryRunner;
 import org.apache.commons.dbutils.handlers.MapListHandler;
+import org.apache.commons.dbutils.handlers.ScalarHandler;
 
 import com.curiouslabs.model.WaitingList;
 import com.curiouslabs.util.Datasource;
@@ -17,12 +18,12 @@ public class WaitingListDao implements GenericDao<WaitingList> {
 	}
 
 	@Override
-	public int save(WaitingList waitingList) {
+	public Long save(WaitingList waitingList) {
 		String sql = "insert into waiting_list (guest_name, guest_count)"+"values(?, ?)";
-		int update = 0;
+		Long update = 0l;
 		
 		try{
-			update = run.update(sql, waitingList.getGuestName(), waitingList.getGuestCount());
+			update = run.insert(sql, new ScalarHandler<Long>(),waitingList.getGuestName(), waitingList.getGuestCount());
 		}catch(Exception e){
 			e.printStackTrace();
 		}

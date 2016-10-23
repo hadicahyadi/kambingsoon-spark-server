@@ -12,7 +12,7 @@ public class MenuMapper {
 	
 	public Menu mapRow(ResultSet rs, int index) throws SQLException{
 		Menu menu  = new Menu();
-		menu.setId(rs.getInt(++index));
+		menu.setId(rs.getLong(++index));
 		menu.setParentId(rs.getInt(++index));
 		menu.setMenuName(rs.getString(++index));
 		menu.setImageName(rs.getString(++index));

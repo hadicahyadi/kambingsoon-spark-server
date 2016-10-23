@@ -32,9 +32,9 @@ public class CategoryDao implements GenericDao<Category> {
 	 * @see com.curiouslabs.dao.GenericDao#save(java.lang.Object)
 	 */
 	@Override
-	public int save(Category object) {
+	public Long save(Category object) {
 		// TODO Auto-generated method stub
-		return 0;
+		return null;
 	}
 
 	/*

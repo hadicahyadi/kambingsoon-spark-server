@@ -53,7 +53,7 @@ public class Main {
 	private static final HashMap<String, String> corsHeaders = new HashMap<String, String>();
 
 	static {
-		corsHeaders.put("Access-Control-Allow-Methods", "GET,PUT,POST,DELETE,OPTIONS");
+		corsHeaders.put("Access-Control-Allow-Methods", "GET,PUT,POST,DELETE");
 		corsHeaders.put("Access-Control-Allow-Origin", "*");
 		corsHeaders.put("Access-Control-Allow-Headers",
 				"Content-Type,Authorization,X-Requested-With,Content-Length,Accept,Origin,");
@@ -74,8 +74,9 @@ public class Main {
 
 	public static void main(String args[]){
 		port(8080); // Spark will run on port 8080
-//		enableCORS("Origin", "GET,PUT,POST", "Content-Type, Accept, X-Requested-With, remember-me");
-		apply();
+		enableCORS("*", "GET,PUT,POST", "Content-Type, Accept, X-Requested-With, remember-me");
+//		apply();
+		
 		// --- Add all api constructor here
 		new CategoryApi("category");
 		new MenuApi("menu");

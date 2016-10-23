@@ -22,7 +22,7 @@ public class ConfigMenuMapper implements GenericMapper<ConfigMenu>{
 	@Override
 	public ConfigMenu mapRow(ResultSet rs, int index) throws SQLException {
 		ConfigMenu cm = new ConfigMenu();
-		cm.setId(rs.getInt(++index));
+		cm.setId(rs.getLong(++index));
 		cm.setMenuId(rs.getInt(++index));
 		cm.setQty(rs.getInt(++index));
 		cm.setUnit(rs.getString(++index));

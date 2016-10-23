@@ -8,6 +8,7 @@ import javax.sql.DataSource;
 
 import org.apache.commons.dbutils.QueryRunner;
 import org.apache.commons.dbutils.handlers.MapListHandler;
+import org.apache.commons.dbutils.handlers.ScalarHandler;
 
 import com.curiouslabs.model.SalesOrder;
 import com.curiouslabs.util.Datasource;
@@ -22,12 +23,12 @@ public class SalesOrderDao implements GenericDao<SalesOrder> {
 	}
 
 	@Override
-	public int save(SalesOrder salesOrder) {
+	public Long save(SalesOrder salesOrder) {
 		String sql = "insert into sales_order (transaction_date, payment_method, total_gross, discount, total_nett, table_no) "
 				+ "values (?,?,?,?,?,?)";
-		int update = 0;
+		Long update = 0l;
 		try{
-			update = run.update(sql, new java.sql.Date(new Date().getTime()), salesOrder.getPaymentMethod(), salesOrder.getTotalGross(),
+			update = run.insert(sql, new ScalarHandler<Long>(), new Date(), salesOrder.getPaymentMethod(), salesOrder.getTotalGross(),
 					salesOrder.getDiscount(), salesOrder.getTotalNett(), salesOrder.getTableNo());
 		}catch(Exception e){
 			e.printStackTrace();

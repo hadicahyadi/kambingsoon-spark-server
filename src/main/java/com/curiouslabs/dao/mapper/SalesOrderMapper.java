@@ -10,7 +10,7 @@ public class SalesOrderMapper {
 	public SalesOrder mapRow(ResultSet rs, int index) throws SQLException
 	{
 		SalesOrder salesOrder = new SalesOrder();
-		salesOrder.setId(rs.getInt(++index));
+		salesOrder.setId(rs.getLong(++index));
 		salesOrder.setTransactionDate(rs.getDate(++index));
 		salesOrder.setPaymentMethod(rs.getString(++index));
 		salesOrder.setTotalGross(rs.getBigDecimal(++index));
