@@ -7,6 +7,7 @@ import spark.Route;
 
 import com.curiouslabs.dao.SalesOrderDao;
 import com.curiouslabs.model.SalesOrder;
+import com.curiouslabs.model.SalesOrderDetail;
 import com.google.gson.Gson;
 
 public class SalesOrderApi extends GenericApi {
@@ -25,9 +26,13 @@ public class SalesOrderApi extends GenericApi {
 				Gson gson = new Gson();
 				SalesOrder salesOrder = gson.fromJson(request.body(), SalesOrder.class);
 				
-				Long result = salesOrderDao.save(salesOrder);
-				System.out.println(result);
-				return "{\"result\":"+result+"}";
+				Long salesOrderId = salesOrderDao.save(salesOrder);
+				for(SalesOrderDetail detail : salesOrder.getOrders()){
+					detail.setSalesOrderId(salesOrderId);
+					salesOrderDao.saveDetail(detail);
+				}
+				System.out.println(salesOrderId);
+				return "{\"result\":"+salesOrderId+"}";
 			}
 		});
 	}

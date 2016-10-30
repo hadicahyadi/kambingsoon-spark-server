@@ -10,13 +10,15 @@ import org.apache.commons.dbutils.QueryRunner;
 import org.apache.commons.dbutils.handlers.MapListHandler;
 import org.apache.commons.dbutils.handlers.ScalarHandler;
 
+
 import com.curiouslabs.model.SalesOrder;
+import com.curiouslabs.model.SalesOrderDetail;
 import com.curiouslabs.util.Datasource;
 
 public class SalesOrderDao implements GenericDao<SalesOrder> {
 	
 	private QueryRunner run;
-	
+		
 	public SalesOrderDao()
 	{
 		run = new QueryRunner(Datasource.getConnection());
@@ -52,5 +54,21 @@ public class SalesOrderDao implements GenericDao<SalesOrder> {
 		}
 		return results;
 		 
+	}
+	
+	public int saveDetail(SalesOrderDetail salesOrderDetail)
+	{
+		String sql = "insert into sales_order_detail (sales_order_id, menu_id, qty, subtotal)"
+				+" values(?,?,?,?)";
+		int update = 0;
+		try{
+			update = run.update(sql, salesOrderDetail.getSalesOrderId(), salesOrderDetail.getMenuId(),
+					salesOrderDetail.getQty(), salesOrderDetail.getSubtotal());
+		}catch (Exception e){
+			e.printStackTrace();
+		}
+		
+		return update;
+		
 	}
 }
