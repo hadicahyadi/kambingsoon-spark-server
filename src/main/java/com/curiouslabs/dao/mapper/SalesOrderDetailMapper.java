@@ -14,7 +14,7 @@ public class SalesOrderDetailMapper {
 		salesOrderDetail.setMenuId(rs.getInt(++index));
 		salesOrderDetail.setQty(rs.getInt(++index));
 		salesOrderDetail.setSubTotal(rs.getBigDecimal(++index));
-		
+		index = 0;
 		return salesOrderDetail;
 		
 	}

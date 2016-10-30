@@ -2,6 +2,7 @@ package com.curiouslabs.model;
 
 import java.math.BigDecimal;
 import java.util.Date;
+import java.util.List;
 
 public class SalesOrder extends BaseModel{
 
@@ -11,8 +12,15 @@ public class SalesOrder extends BaseModel{
 		private int discount;
 		private BigDecimal totalNett;
 		private int tableNo;
+		private List<SalesOrderDetail> orders;
 		
 		
+		public List<SalesOrderDetail> getOrders() {
+			return orders;
+		}
+		public void setOrders(List<SalesOrderDetail> orders) {
+			this.orders = orders;
+		}
 		public Date getTransactionDate() {
 			return transactionDate;
 		}

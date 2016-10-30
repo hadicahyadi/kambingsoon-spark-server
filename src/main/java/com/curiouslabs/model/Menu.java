@@ -9,12 +9,12 @@ import java.util.List;
 
 public class Menu extends BaseModel{
 	
-	private int parentId;
+	private Long parentId;
 	private String menuName;
 	private String imageName;
 	private BigDecimal price;
 	private String description;
-	private int categoryId;
+	private Long categoryId;
 	
 	private Category category;
 	private List<ConfigMenu> configMenu;
@@ -26,10 +26,10 @@ public class Menu extends BaseModel{
 	public void setPrice(BigDecimal price) {
 		this.price = price;
 	}
-	public int getParentId() {
+	public Long getParentId() {
 		return parentId;
 	}
-	public void setParentId(int parentId) {
+	public void setParentId(Long parentId) {
 		this.parentId = parentId;
 	}
 	public List<ConfigMenu> getConfigMenu() {
@@ -56,10 +56,10 @@ public class Menu extends BaseModel{
 	public void setDescription(String description) {
 		this.description = description;
 	}
-	public int getCategoryId() {
+	public Long getCategoryId() {
 		return categoryId;
 	}
-	public void setCategoryId(int categoryId) {
+	public void setCategoryId(Long categoryId) {
 		this.categoryId = categoryId;
 	}
 	public Category getCategory() {

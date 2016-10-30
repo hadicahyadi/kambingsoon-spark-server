@@ -7,11 +7,14 @@ import spark.Route;
 
 import com.curiouslabs.dao.SalesOrderDao;
 import com.curiouslabs.model.SalesOrder;
+import com.curiouslabs.model.SalesOrderDetail;
 import com.google.gson.Gson;
 
 public class SalesOrderApi extends GenericApi {
 	
 	private SalesOrderDao salesOrderDao;
+	
+	private Gson gson = new Gson();
 	
 	public SalesOrderApi(String BASE_ROUTE){
 		
@@ -25,10 +28,24 @@ public class SalesOrderApi extends GenericApi {
 				Gson gson = new Gson();
 				SalesOrder salesOrder = gson.fromJson(request.body(), SalesOrder.class);
 				
-				Long result = salesOrderDao.save(salesOrder);
-				System.out.println(result);
-				return "{\"result\":"+result+"}";
+				Long salesOrderId = salesOrderDao.save(salesOrder);
+				for(SalesOrderDetail detail : salesOrder.getOrders()){
+					detail.setSalesOrderId(salesOrderId);
+					salesOrderDao.saveDetail(detail);
+				}
+				System.out.println(salesOrderId);
+				return "{\"result\":"+salesOrderId+"}";
 			}
+		});
+		
+		get(BASE_ROUTE+"/getByTable", new Route(){
+
+			@Override
+			public Object handle(Request request, Response response) throws Exception {
+				String table = request.queryParams("tableNumber");
+				return gson.toJson(salesOrderDao.getByTable(table));
+			}
+			
 		});
 	}
 }

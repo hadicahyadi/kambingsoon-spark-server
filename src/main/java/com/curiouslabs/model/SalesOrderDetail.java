@@ -10,6 +10,17 @@ public class SalesOrderDetail extends BaseModel{
 	private BigDecimal subtotal;
 	
 	
+	private Menu menu;
+	
+	public void setSubtotal(BigDecimal subtotal) {
+		this.subtotal = subtotal;
+	}
+	public Menu getMenu() {
+		return menu;
+	}
+	public void setMenu(Menu menu) {
+		this.menu = menu;
+	}
 	public BigDecimal getSubtotal() {
 		return subtotal;
 	}
