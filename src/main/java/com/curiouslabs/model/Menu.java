@@ -7,17 +7,16 @@ import java.math.BigDecimal;
 import java.util.List;
 
 
-public class Menu extends BaseModel{
+public class Menu extends BaseModel implements BaseModelInterface{
 	
 	private Long parentId;
 	private String menuName;
-	private String imageName;
+	private String imageUrl;
 	private BigDecimal price;
 	private String description;
 	private Long categoryId;
 	
 	private Category category;
-	private List<ConfigMenu> configMenu;
 	
 	
 	public BigDecimal getPrice() {
@@ -32,23 +31,17 @@ public class Menu extends BaseModel{
 	public void setParentId(Long parentId) {
 		this.parentId = parentId;
 	}
-	public List<ConfigMenu> getConfigMenu() {
-		return configMenu;
-	}
-	public void setConfigMenu(List<ConfigMenu> configMenu) {
-		this.configMenu = configMenu;
-	}
 	public String getMenuName() {
 		return menuName;
 	}
 	public void setMenuName(String menuName) {
 		this.menuName = menuName;
 	}
-	public String getImageName() {
-		return imageName;
+	public String getImageUrl() {
+		return imageUrl;
 	}
-	public void setImageName(String imageName) {
-		this.imageName = imageName;
+	public void setImageUrl(String imageUrl) {
+		this.imageUrl = imageUrl;
 	}
 	public String getDescription() {
 		return description;
@@ -67,6 +60,10 @@ public class Menu extends BaseModel{
 	}
 	public void setCategory(Category category) {
 		this.category = category;
+	}
+	@Override
+	public Object[] toArray() {
+		return new Object[]{parentId,menuName,imageUrl,price,description,categoryId};
 	}
 	
 	

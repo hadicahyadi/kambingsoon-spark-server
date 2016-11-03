@@ -108,8 +108,8 @@ public class MenuApi extends GenericApi {
 				}
 
 				CloudinaryHelper cloudinaryHelper = new CloudinaryHelper();
-				String responseCloudinary = cloudinaryHelper.uploadImage(buffer.toByteArray());
-				System.out.println(responseCloudinary);
+				String imageUrl = cloudinaryHelper.uploadImage(buffer.toByteArray());
+				Menu menu = gson.fromJson(request.body(), Menu.class);
 				return "00";
 			}
 

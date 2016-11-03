@@ -12,9 +12,17 @@ public class SalesOrder extends BaseModel{
 		private int discount;
 		private BigDecimal totalNett;
 		private int tableNo;
+		private String status;
 		private List<SalesOrderDetail> orders;
 		
 		
+		
+		public String getStatus() {
+			return status;
+		}
+		public void setStatus(String status) {
+			this.status = status;
+		}
 		public List<SalesOrderDetail> getOrders() {
 			return orders;
 		}

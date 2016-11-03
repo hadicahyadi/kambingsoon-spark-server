@@ -13,6 +13,7 @@ import org.apache.commons.dbutils.ResultSetHandler;
 import org.apache.commons.dbutils.handlers.BeanListHandler;
 import org.apache.commons.dbutils.handlers.MapListHandler;
 
+import com.curiouslabs.dao.beanprocessor.CategoryBeanProcessor;
 import com.curiouslabs.model.Category;
 import com.curiouslabs.util.Datasource;
 import com.curiouslabs.util.StateBeanProcessor;
@@ -26,54 +27,25 @@ public class CategoryDao implements GenericDao<Category> {
 		run = new QueryRunner(Datasource.getConnection());
 	}
 
-	/*
-	 * (non-javadoc)
-	 * 
-	 * @see com.curiouslabs.dao.GenericDao#save(java.lang.Object)
-	 */
 	@Override
-	public Long save(Category object) {
+	public Long save(Category object) throws SQLException {
 		// TODO Auto-generated method stub
 		return null;
 	}
-
-	/*
-	 * (non-javadoc)
-	 * 
-	 * @see com.curiouslabs.dao.GenericDao#getAll()
-	 */
-	@Override
-	public List<Category> getAll() {
-		// QueryRunner run = new QueryRunner(Datasource.getConnection());
-		String sql = "select * from category";
-		
-		List<Category> list = null;
-		List results = null;
-		try {
-			results = (List) run.query(sql,new MapListHandler());
-			list = results;
-		} catch (SQLException e) {
-			e.printStackTrace();
-		}
-		return results;
-
-	}
 	
-	public List getall() {
-		
+	@Override
+	public List<Category> getAll() throws SQLException {
 		String sql = "select * from category";
-		
-		List results = new ArrayList<>();
-		try {
-			results = (List) run.query(sql,new MapListHandler());
-			for(int i=0;i<results.size();i++){
-				System.out.println(results.get(i));
-			}
-		} catch (SQLException e) {
-			e.printStackTrace();
-		}
-		return results;
-
+		List<Category> result = run.query(sql, new BeanListHandler<Category>(Category.class,new CategoryBeanProcessor()));
+		return result;
 	}
+
+	@Override
+	public int update(Category obhect) throws SQLException {
+		// TODO Auto-generated method stub
+		return 0;
+	}
+
+	
 
 }

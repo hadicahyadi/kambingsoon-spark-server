@@ -1,9 +1,11 @@
 package com.curiouslabs.model;
 
-public class WaitingList extends BaseModel{
+import com.google.gson.Gson;
+
+public class WaitingList extends BaseModel implements BaseModelInterface{
 	
 	private String guestName;
-	private String guestCount;
+	private int guestCount;
 	
 	public String getGuestName() {
 		return guestName;
@@ -11,11 +13,16 @@ public class WaitingList extends BaseModel{
 	public void setGuestName(String guestName) {
 		this.guestName = guestName;
 	}
-	public String getGuestCount() {
+	public int getGuestCount() {
 		return guestCount;
 	}
-	public void setGuestCount(String guestCount) {
+	public void setGuestCount(int guestCount) {
 		this.guestCount = guestCount;
+	}
+	
+	public Object[] toArray(){
+		return new Object[]{guestName,guestCount};
+		
 	}
 	
 

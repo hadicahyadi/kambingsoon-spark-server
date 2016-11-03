@@ -27,7 +27,7 @@ public class CloudinaryHelper {
 			// TODO Auto-generated catch block
 			e.printStackTrace();
 		}
-		return gson.toJson(responseMap);
+		return (String) responseMap.get("url");
 	}
 
 }

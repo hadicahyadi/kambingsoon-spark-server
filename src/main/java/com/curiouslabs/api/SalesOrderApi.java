@@ -38,6 +38,16 @@ public class SalesOrderApi extends GenericApi {
 			}
 		});
 		
+		post(BASE_ROUTE+"/update", new Route(){
+
+			@Override
+			public Object handle(Request request, Response response) throws Exception {
+				System.out.println("[REQUEST BODY] - "+request.body());
+				SalesOrder salesOrder = gson.fromJson(request.body(), SalesOrder.class);
+				int result = salesOrderDao.update(salesOrder);
+				return "{\"result\":\"SUCCESS\"}";
+			}});
+		
 		get(BASE_ROUTE+"/getByTable", new Route(){
 
 			@Override

@@ -1,5 +1,6 @@
 package com.curiouslabs.dao;
 
+import java.sql.SQLException;
 import java.util.List;
 
 import javax.sql.DataSource;
@@ -48,6 +49,13 @@ public class SalesOrderDetailDao implements GenericDao<SalesOrderDetail>{
 			e.printStackTrace();
 		}
 		return null;
+	}
+
+
+	@Override
+	public int update(SalesOrderDetail obhect) throws SQLException {
+		// TODO Auto-generated method stub
+		return 0;
 	}
 
 }

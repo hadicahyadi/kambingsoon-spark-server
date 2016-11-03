@@ -39,7 +39,7 @@ public class CategoryApi extends GenericApi{
 			public Object handle(Request request, Response response)
 					throws Exception {
 
-				return gson.toJson(categoryDao.getall());
+				return gson.toJson(categoryDao.getAll());
 			}
 		});
 	}

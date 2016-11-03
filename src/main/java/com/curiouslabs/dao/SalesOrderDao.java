@@ -109,8 +109,7 @@ public class SalesOrderDao implements GenericDao<SalesOrder> {
 		return salesOrder;
 	}
 	
-	public int saveDetail(SalesOrderDetail salesOrderDetail)
-	{
+	public int saveDetail(SalesOrderDetail salesOrderDetail){
 		String sql = "insert into sales_order_detail (sales_order_id, menu_id, qty, subtotal)"
 				+" values(?,?,?,?)";
 		int update = 0;
@@ -123,5 +122,15 @@ public class SalesOrderDao implements GenericDao<SalesOrder> {
 		
 		return update;
 		
+	}
+
+	@Override
+	public int update(SalesOrder salesOrder) throws SQLException {
+		String sql = "update sales_order set discount = ?, set total_nett = ?, set payment_method = ?,"
+				+ "set status = ?, table_no = ? where id = ?";
+		int result = run.update(sql,salesOrder.getDiscount(),salesOrder.getTotalNett(),
+				salesOrder.getPaymentMethod(),salesOrder.getStatus(),salesOrder.getTableNo(),salesOrder.getId());
+		System.out.println(result+" row(s) updated");
+		return result;
 	}
 }

@@ -3,6 +3,7 @@
  */
 package com.curiouslabs.dao;
 
+import java.sql.SQLException;
 import java.util.List;
 
 /**
@@ -12,8 +13,10 @@ import java.util.List;
  */
 public interface GenericDao<T> {
 	
-	public Long save(T object);
+	public Long save(T object) throws SQLException;
 	
-	public List<T> getAll();
+	public int update(T obhect) throws SQLException;
+	
+	public List<T> getAll() throws SQLException;
 
 }
