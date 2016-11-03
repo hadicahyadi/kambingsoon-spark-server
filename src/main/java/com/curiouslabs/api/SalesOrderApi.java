@@ -44,7 +44,13 @@ public class SalesOrderApi extends GenericApi {
 			public Object handle(Request request, Response response) throws Exception {
 				System.out.println("[REQUEST BODY] - "+request.body());
 				SalesOrder salesOrder = gson.fromJson(request.body(), SalesOrder.class);
-				int result = salesOrderDao.update(salesOrder);
+				int result = 0;
+				try{
+					result = salesOrderDao.update(salesOrder);
+				}catch(Exception e){
+					e.printStackTrace();
+				}
+				
 				return "{\"result\":\"SUCCESS\"}";
 			}});
 		
