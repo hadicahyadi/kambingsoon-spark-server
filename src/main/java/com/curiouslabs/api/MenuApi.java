@@ -49,6 +49,15 @@ public class MenuApi extends GenericApi {
 				return gson.toJson(menuDao.getParentMenu());
 			}
 		});
+		
+		get(BASE_ROUTE + "/getAll",new Route(){
+
+			@Override
+			public Object handle(Request arg0, Response arg1) throws Exception {
+				return gson.toJson(menuDao.getAll());
+			}
+			
+		});
 
 		get(BASE_ROUTE + "/getChildMenu", new Route() {
 
@@ -110,7 +119,9 @@ public class MenuApi extends GenericApi {
 				CloudinaryHelper cloudinaryHelper = new CloudinaryHelper();
 				String imageUrl = cloudinaryHelper.uploadImage(buffer.toByteArray());
 				Menu menu = gson.fromJson(request.body(), Menu.class);
-				return "00";
+				menu.setImageUrl(imageUrl);
+				menuDao.save(menu);
+				return "{\"result\":\"SUCCESS\"}";
 			}
 
 		});

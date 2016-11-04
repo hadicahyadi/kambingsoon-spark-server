@@ -11,11 +11,9 @@ public class SalesOrder extends BaseModel{
 		private BigDecimal totalGross;
 		private int discount;
 		private BigDecimal totalNett;
-		private int tableNo;
+		private String tableNo;
 		private String status;
 		private List<SalesOrderDetail> orders;
-		
-		
 		
 		public String getStatus() {
 			return status;
@@ -59,14 +57,12 @@ public class SalesOrder extends BaseModel{
 		public void setTotalNett(BigDecimal totalNett) {
 			this.totalNett = totalNett;
 		}
-		public int getTableNo() {
+		public String getTableNo() {
 			return tableNo;
 		}
-		public void setTableNo(int tableNo) {
+		public void setTableNo(String tableNo) {
 			this.tableNo = tableNo;
 		}
-		
-		
 		
 		
 }

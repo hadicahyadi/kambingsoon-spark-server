@@ -16,8 +16,8 @@ public class SalesOrderMapper {
 		salesOrder.setTotalGross(rs.getBigDecimal(++index));
 		salesOrder.setDiscount(rs.getInt(++index));
 		salesOrder.setTotalNett(rs.getBigDecimal(++index));
-		salesOrder.setTableNo(rs.getInt(++index));
-		
+		salesOrder.setTableNo(rs.getString(++index));
+		salesOrder.setStatus(rs.getString(++index));
 		return salesOrder;
 		
 	}

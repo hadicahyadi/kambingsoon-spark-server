@@ -79,8 +79,9 @@ public class SalesOrderDao implements GenericDao<SalesOrder> {
 				}
 			});
 			
-			String detailSql = "select s.*,m.* from sales_order_detail s"
+			String detailSql = "select s.*,m.*,c.* from sales_order_detail s"
 					+ " join menu m on s.menu_id = m.id"
+					+ " join category c on m.category_id = c.id"
 					+ " where sales_order_id = "+salesOrder.getId();
 			
 			@SuppressWarnings("unchecked")
