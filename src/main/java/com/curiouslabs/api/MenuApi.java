@@ -49,7 +49,8 @@ public class MenuApi extends GenericApi {
 
 			@Override
 			public Object handle(Request request, Response response) throws Exception {
-				return gson.toJson(menuDao.getParentMenu());
+				Long categoryId = Long.parseLong(request.queryParams("categoryId"));
+				return gson.toJson(menuDao.getParentMenu(categoryId));
 			}
 		});
 		
@@ -124,6 +125,7 @@ public class MenuApi extends GenericApi {
 					String imageUrl=(String) mapResponse.get("url");
 					System.out.println("URL IMAGE: "+imageUrl);
 					menu.setImageUrl(imageUrl);
+					menu.setMenuName(menu.getMenuName().toUpperCase());
 					menuDao.save(menu);
 				} catch (Exception e) {
 					e.printStackTrace();

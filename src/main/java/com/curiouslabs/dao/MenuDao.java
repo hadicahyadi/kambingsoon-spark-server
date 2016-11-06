@@ -35,8 +35,9 @@ public class MenuDao implements GenericDao<Menu>{
 		run = new QueryRunner(Datasource.getConnection());
 	}
 	
-	public List<Menu> getParentMenu() throws SQLException {
-		String sql = "select m.*,c.* from menu m join category c on m.category_id = c.id where m.parent_id is null";
+	public List<Menu> getParentMenu(Long categoryId) throws SQLException {
+		String sql = "select m.*,c.* from menu m join category c on m.category_id = c.id where m.parent_id is null"
+				+ " and category_id = "+categoryId;
 		List<Menu> result = run.query(sql, new BeanListHandler<Menu>(Menu.class,new MenuBeanProcessor()));
 		return result;
 	}
@@ -79,7 +80,7 @@ public class MenuDao implements GenericDao<Menu>{
 //		menu.setDescription("this is test menu");
 //		menu.setImageUrl("http://sfwr.com/fislg");
 //		Long id = new MenuDao().save(menu);
-		System.out.println(new MenuDao().getParentMenu().size());
+//		System.out.println(new MenuDao().getParentMenu().size());
 	}
 
 }
