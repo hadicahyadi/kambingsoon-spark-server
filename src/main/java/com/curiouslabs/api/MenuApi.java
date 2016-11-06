@@ -23,6 +23,8 @@ import java.net.URL;
 import java.nio.file.Paths;
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Map;
+import java.util.logging.Logger;
 
 import javax.servlet.MultipartConfigElement;
 import javax.servlet.http.Part;
@@ -33,6 +35,7 @@ import javax.servlet.http.Part;
  *         Aug 16, 2016
  */
 public class MenuApi extends GenericApi {
+	
 
 	private MenuDao menuDao;
 
@@ -76,6 +79,7 @@ public class MenuApi extends GenericApi {
 		});
 
 		post(BASE_ROUTE + "/save", new Route() {
+			
 
 			@Override
 			public Object handle(Request request, Response response) throws Exception {
@@ -112,15 +116,20 @@ public class MenuApi extends GenericApi {
 					}
 
 					buffer.flush();
+					
+					CloudinaryHelper cloudinaryHelper = new CloudinaryHelper();
+					Map<String,Object> mapResponse = cloudinaryHelper.uploadImage(buffer.toByteArray());
+					String body = request.raw().getParameter("data");
+					Menu menu = gson.fromJson(body, Menu.class);
+					String imageUrl=(String) mapResponse.get("url");
+					System.out.println("URL IMAGE: "+imageUrl);
+					menu.setImageUrl(imageUrl);
+					menuDao.save(menu);
 				} catch (Exception e) {
 					e.printStackTrace();
 				}
 
-				CloudinaryHelper cloudinaryHelper = new CloudinaryHelper();
-				String imageUrl = cloudinaryHelper.uploadImage(buffer.toByteArray());
-				Menu menu = gson.fromJson(request.body(), Menu.class);
-				menu.setImageUrl(imageUrl);
-				menuDao.save(menu);
+				
 				return "{\"result\":\"SUCCESS\"}";
 			}
 

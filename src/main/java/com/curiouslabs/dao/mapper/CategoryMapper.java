@@ -10,10 +10,8 @@ public class CategoryMapper implements GenericRowMapper<Category>{
 	@Override
 	public Category mapRow(ResultSet rs, int index) throws SQLException {
 		Category category = new Category();
-		while(rs.next()){
-			category.setId(rs.getLong(++index));
-			category.setCategoryName(rs.getString(++index));
-		}
+		category.setId(rs.getLong(++index));
+		category.setCategoryName(rs.getString(++index));
 		return category;
 	}
 

@@ -35,42 +35,9 @@ public class MenuDao implements GenericDao<Menu>{
 		run = new QueryRunner(Datasource.getConnection());
 	}
 	
-	public List<Menu> getParentMenu() {
-
-		String sql = "select * from menu where parent_id is ?";
-		
-		List<Menu> result = new ArrayList<Menu>();
-		
-		try{
-			run.query(sql, new ResultSetHandler<List<Menu>>(){
-
-				@Override
-				public List<Menu> handle(ResultSet rs) throws SQLException {
-					int index = 0;
-					Menu menu;
-					ConfigMenu cm;
-					while(rs.next()){
-						menu = new MenuMapper().mapRow(rs, index);
-						result.add(menu);
-					}
-				return result;
-				}
-				
-				
-			});
-		} catch (SQLException e){
-			e.printStackTrace();
-		}
-//		List results = new ArrayList<>();
-//		try {
-//			results = (List) run.query(sql, new MapListHandler());
-//			for (int i = 0; i < results.size(); i++) {
-//				System.out.println(results.get(i));
-//			}
-//		} catch (SQLException e) {
-//			e.printStackTrace();
-//		}
-//		return results;
+	public List<Menu> getParentMenu() throws SQLException {
+		String sql = "select m.*,c.* from menu m join category c on m.category_id = c.id where m.parent_id is null";
+		List<Menu> result = run.query(sql, new BeanListHandler<Menu>(Menu.class,new MenuBeanProcessor()));
 		return result;
 	}
 
@@ -112,7 +79,7 @@ public class MenuDao implements GenericDao<Menu>{
 //		menu.setDescription("this is test menu");
 //		menu.setImageUrl("http://sfwr.com/fislg");
 //		Long id = new MenuDao().save(menu);
-		System.out.println(new MenuDao().getByParent(1l).get(0).getCategory().getCategoryName());
+		System.out.println(new MenuDao().getParentMenu().size());
 	}
 
 }

@@ -18,16 +18,17 @@ public class CloudinaryHelper {
 				"api_secret", "QnrMZMv4jh_6_HOihIU7IR_Xc-4"));
 	}
 	
-	public String uploadImage(byte[] file){
+	public Map<String,Object> uploadImage(byte[] file){
 		Gson gson = new Gson();
-		Map responseMap = null;
+		Map<String,Object> responseMap = null;
 		try {
 			responseMap = cloudinary.uploader().upload(file, ObjectUtils.asMap("folder","MENU_IMAGE"));
+//			System.out.println(gson.toJson(responseMap));
 		} catch (IOException e) {
 			// TODO Auto-generated catch block
 			e.printStackTrace();
 		}
-		return (String) responseMap.get("url");
+		return responseMap;
 	}
 
 }

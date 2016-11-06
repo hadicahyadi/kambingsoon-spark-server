@@ -45,7 +45,10 @@ public class CategoryDao implements GenericDao<Category> {
 		// TODO Auto-generated method stub
 		return 0;
 	}
-
+	
+	public static void main(String args[]) throws SQLException{
+		System.out.println(new CategoryDao().getAll().size());
+	}
 	
 
 }
