@@ -4,6 +4,7 @@ import java.sql.SQLException;
 import java.util.List;
 
 import org.apache.commons.dbutils.QueryRunner;
+import org.apache.commons.dbutils.handlers.MapHandler;
 import org.apache.commons.dbutils.handlers.MapListHandler;
 import org.apache.commons.dbutils.handlers.ScalarHandler;
 import org.slf4j.Logger;
@@ -60,6 +61,18 @@ public class UserDao implements GenericDao<User>{
 			e.printStackTrace();
 		}
 		return result;
+	}
+	
+	public User getByUsernamePassword(String username,String password){
+		String sql = "select * from user where username = '"+username+"' and password ='"+password+"'";
+		User user = null;
+		try {
+			user = (User) run.query(sql, new MapHandler());
+		} catch (SQLException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
+		return user;
 	}
 
 }

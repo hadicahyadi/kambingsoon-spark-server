@@ -49,6 +49,21 @@ public class UserApi extends GenericApi{
 			}
 			
 		});
+		
+		get(BASE_ROUTE+"/login",new Route(){
+
+			@Override
+			public Object handle(Request request, Response arg1) throws Exception {
+				String username = request.queryParams("username");
+				String password = request.queryParams("password");
+				User user = userDao.getByUsernamePassword(username, password);
+				if(user == null){
+					return "{\"result\":\"FAILED\"}";
+				}
+				return user;
+			}
+			
+		});
 	}
 
 }
