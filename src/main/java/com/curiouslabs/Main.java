@@ -11,6 +11,7 @@ import java.util.HashMap;
 import com.curiouslabs.api.CategoryApi;
 import com.curiouslabs.api.MenuApi;
 import com.curiouslabs.api.SalesOrderApi;
+import com.curiouslabs.api.WaitingListApi;
 import com.pusher.rest.Pusher;
 
 import spark.Filter;
@@ -83,6 +84,7 @@ public class Main {
 		new CategoryApi("category");
 		new MenuApi("menu");
 		new SalesOrderApi("salesOrder");
+		new WaitingListApi("waitingList");
 		
 		get("/", (request,response) -> "Hello World");
 	}
