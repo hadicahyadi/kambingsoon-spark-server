@@ -58,9 +58,10 @@ public class MenuDao implements GenericDao<Menu>{
 	}
 
 	@Override
-	public int update(Menu obhect) throws SQLException {
-		// TODO Auto-generated method stub
-		return 0;
+	public int update(Menu menu) throws SQLException {
+		String sql = "update menu set price = ? where id = ?";
+		int row = run.update(sql,menu.getPrice(),menu.getId());
+		return row;
 	}
 	
 	@Override

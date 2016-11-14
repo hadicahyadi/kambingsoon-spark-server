@@ -19,6 +19,7 @@ import static spark.Spark.*;
 import java.io.ByteArrayOutputStream;
 import java.io.File;
 import java.io.InputStream;
+import java.math.BigDecimal;
 import java.net.URL;
 import java.nio.file.Paths;
 import java.util.ArrayList;
@@ -147,6 +148,22 @@ public class MenuApi extends GenericApi {
 				return "{\"result\":\"SUCCESS\"}";
 			}
 
+		});
+		
+		post(BASE_ROUTE+"/updatePrice",new Route(){
+
+			@Override
+			public Object handle(Request request, Response response) throws Exception {
+				BigDecimal price = new BigDecimal(request.queryParams("price"));
+				Long id = Long.parseLong(request.queryParams("id"));
+				Menu menu = new Menu();
+				menu.setId(id);
+				menu.setPrice(price);
+				int row = menuDao.update(menu);
+				return "{\"result\":"+row+"}";
+				
+			}
+			
 		});
 	}
 
