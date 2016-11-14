@@ -31,7 +31,7 @@ public class WaitingListApi extends GenericApi {
 			}
 		});
 		
-		get(BASE_ROUTE+"/get", new Route()
+		get(BASE_ROUTE+"/getAll", new Route()
 		{
 			@Override
 			public Object handle(Request request, Response response) throws Exception{

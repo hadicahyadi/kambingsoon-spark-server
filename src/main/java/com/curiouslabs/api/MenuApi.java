@@ -57,6 +57,15 @@ public class MenuApi extends GenericApi {
 			}
 		});
 		
+		get(BASE_ROUTE + "/getAllParentMenu", new Route() {
+
+			@Override
+			public Object handle(Request request, Response response) throws Exception {
+				log.info(request.url()+request.queryString());
+				return gson.toJson(menuDao.getAllParentMenu());
+			}
+		});
+		
 		get(BASE_ROUTE + "/getAll",new Route(){
 
 			@Override
