@@ -9,20 +9,19 @@ import org.apache.commons.dbutils.ResultSetHandler;
 import org.apache.commons.dbutils.handlers.BeanListHandler;
 import org.apache.commons.dbutils.handlers.MapListHandler;
 import org.apache.commons.dbutils.handlers.ScalarHandler;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 
+import com.curiouslabs.api.MenuApi;
 import com.curiouslabs.dao.beanprocessor.WaitingListBeanProcessor;
 import com.curiouslabs.model.WaitingList;
 import com.curiouslabs.util.Datasource;
 
 public class WaitingListDao implements GenericDao<WaitingList> {
 	
-	private QueryRunner run;
+	private final Logger log = LoggerFactory.getLogger(WaitingListDao.class);
 	
-//	public WaitingListDao() {
-//		super("waiting_list");
-//		insertSql = "insert into waiting_list (guest_name, guest_count)"+"values(?, ?)";
-//		rs = new WaitingListMap();
-//	}
+	private QueryRunner run;
 	
 	public WaitingListDao()
 	{
@@ -56,9 +55,21 @@ public class WaitingListDao implements GenericDao<WaitingList> {
 		return result;
 	}
 	
-	public static void main(String args[]) throws SQLException{
-		System.out.println(new WaitingListDao().getAll().get(0).getGuestName());
+	public int remove(Long id){
+		String sql = "delete from waiting_list where id = "+id;
+		int row = 0;
+		try{
+			row = run.update(sql);
+			log.info(row+" row(s) deleted");
+		}catch(Exception e){
+			e.printStackTrace();
+		}
+		return row;
 	}
+	
+//	public static void main(String args[]) throws SQLException{
+//		System.out.println(new WaitingListDao().remove(1L));
+//	}
 
 	@Override
 	public int update(WaitingList obhect) throws SQLException {

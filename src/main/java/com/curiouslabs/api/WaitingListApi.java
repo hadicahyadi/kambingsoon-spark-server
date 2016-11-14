@@ -38,6 +38,16 @@ public class WaitingListApi extends GenericApi {
 				return gson.toJson(waitingListDao.getAll());
 			}
 		});
+		
+		post(BASE_ROUTE+"/delete",new Route(){
+
+			@Override
+			public Object handle(Request request, Response response) throws Exception {
+				String id = request.queryParams("id");
+				int row  = waitingListDao.remove(Long.parseLong(id));
+				return "{\"result\":"+row+"}";
+			}
+		});
 	}
 
 }

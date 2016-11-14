@@ -15,7 +15,7 @@ public interface GenericDao<T> {
 	
 	public Long save(T object) throws SQLException;
 	
-	public int update(T obhect) throws SQLException;
+	public int update(T object) throws SQLException;
 	
 	public List<T> getAll() throws SQLException;
 

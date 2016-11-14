@@ -24,10 +24,12 @@ import java.nio.file.Paths;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Map;
-import java.util.logging.Logger;
 
 import javax.servlet.MultipartConfigElement;
 import javax.servlet.http.Part;
+
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 
 /**
  * @author hadi
@@ -35,7 +37,7 @@ import javax.servlet.http.Part;
  *         Aug 16, 2016
  */
 public class MenuApi extends GenericApi {
-	
+	private final Logger log = LoggerFactory.getLogger(MenuApi.class);
 
 	private MenuDao menuDao;
 
@@ -50,6 +52,7 @@ public class MenuApi extends GenericApi {
 			@Override
 			public Object handle(Request request, Response response) throws Exception {
 				Long categoryId = Long.parseLong(request.queryParams("categoryId"));
+				log.info(request.url()+request.queryString());
 				return gson.toJson(menuDao.getParentMenu(categoryId));
 			}
 		});

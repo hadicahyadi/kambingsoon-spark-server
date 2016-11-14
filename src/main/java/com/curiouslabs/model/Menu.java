@@ -16,9 +16,15 @@ public class Menu extends BaseModel implements BaseModelInterface{
 	private String description;
 	private Long categoryId;
 	
+	private String parentName;
 	private Category category;
 	
-	
+	public String getParentName() {
+		return parentName;
+	}
+	public void setParentName(String parentName) {
+		this.parentName = parentName;
+	}
 	public BigDecimal getPrice() {
 		return price;
 	}
