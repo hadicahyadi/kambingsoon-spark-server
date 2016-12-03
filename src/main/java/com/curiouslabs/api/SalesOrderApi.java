@@ -70,15 +70,17 @@ public class SalesOrderApi extends GenericApi {
 					result = salesOrderDao.update(salesOrder);
 					Map<String,Object> mapParam = new HashMap<String,Object>();
 					mapParam.put("table", salesOrder.getTableNo());
-					JasperReport report = JasperCompileManager.compileReport("C:\\Users\\Paybill\\Desktop\\struct.jrxml");
+					ClassLoader classLoader = getClass().getClassLoader();
+					File file = new File(classLoader.getResource("report/struct.jrxml").getFile());
+					JasperReport report = JasperCompileManager.compileReport(file.getAbsolutePath());
 		            JasperPrint print = JasperFillManager.fillReport(report, mapParam, Datasource.getConnection().getConnection());
 		            DateFormat df = new SimpleDateFormat("yyyyMMdd_HH_mm_ss");
 		            String filename = "struct_"+df.format(new Date());
 		            File pdf = File.createTempFile(filename, ".pdf");
-		            response.header("Content-Disposition", String.format("attachment; filename="+filename));
-		            response.type("application/pdf");
+//		            response.header("Content-Disposition", String.format("attachment; filename="+filename));
+//		            response.type("application/pdf");
 		            JasperExportManager.exportReportToPdfStream(print,response.raw().getOutputStream());
-		            
+//		            response. ("{\"result\":"+filename+"}");
 				}catch(Exception e){
 					e.printStackTrace();
 				}

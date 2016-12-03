@@ -50,7 +50,7 @@ public class Main {
 	        response.header("Access-Control-Request-Method", methods);
 	        response.header("Access-Control-Allow-Headers", headers);
 	        // Note: this may or may not be necessary in your particular application
-	        response.type("application/json");
+//	        response.type("application/json");
 	    });
 	}
 	
@@ -60,7 +60,7 @@ public class Main {
 		corsHeaders.put("Access-Control-Allow-Methods", "GET,PUT,POST,DELETE");
 		corsHeaders.put("Access-Control-Allow-Origin", "*");
 		corsHeaders.put("Access-Control-Allow-Headers",
-				"Content-Type,Authorization,X-Requested-With,Content-Length,Accept,Origin,");
+				"Content-Disposition,Content-Type,Authorization,X-Requested-With,Content-Length,Accept,Origin,");
 		corsHeaders.put("Access-Control-Allow-Credentials", "true");
 	}
 
@@ -78,7 +78,7 @@ public class Main {
 
 	public static void main(String args[]){
 		port(8080); // Spark will run on port 8080
-		enableCORS("*", "GET,PUT,POST", "Content-Type, Accept, X-Requested-With, remember-me");
+		enableCORS("*", "GET,PUT,POST", "Content-Type, Accept, X-Requested-With, remember-me,Content-Disposition");
 //		apply();
 		
 		// --- Add all api constructor here
