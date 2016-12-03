@@ -11,6 +11,7 @@ import java.util.HashMap;
 import com.curiouslabs.api.CategoryApi;
 import com.curiouslabs.api.MenuApi;
 import com.curiouslabs.api.SalesOrderApi;
+import com.curiouslabs.api.UserApi;
 import com.curiouslabs.api.WaitingListApi;
 import com.pusher.rest.Pusher;
 
@@ -85,6 +86,7 @@ public class Main {
 		new MenuApi("menu");
 		new SalesOrderApi("salesOrder");
 		new WaitingListApi("waitingList");
+		new UserApi("User");
 		
 		get("/", (request,response) -> "Hello World");
 	}

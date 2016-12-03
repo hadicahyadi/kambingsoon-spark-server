@@ -83,5 +83,15 @@ public class SalesOrderApi extends GenericApi {
 			}
 			
 		});
+		
+		get(BASE_ROUTE+"/tableActive", new Route(){
+
+			@Override
+			public Object handle(Request request, Response response) throws Exception {
+				String table = request.queryParams("IsActive");
+				return gson.toJson(salesOrderDao.tableIsActive(table));
+			}
+			
+		});
 	}
 }

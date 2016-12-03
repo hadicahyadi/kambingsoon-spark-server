@@ -62,6 +62,21 @@ public class SalesOrderDao implements GenericDao<SalesOrder> {
 		 
 	}
 	
+	
+	public List<String> tableIsActive(String table)
+	{
+		String sql = "select table_no from sales_order where is_active = 1";
+		List<String> list = null;
+		List results = null;
+		try{
+			results = (List) run.query(sql, new MapListHandler());
+			list = results;
+		}catch (SQLException e){
+			e.printStackTrace();
+		}
+		return results;
+	}
+	
 	public SalesOrder getByTable(String table){
 		String sql = "select * from sales_order where table_no = '"+table+"' and status = 'UNPAID'";
 		SalesOrder salesOrder = new SalesOrder();
@@ -128,10 +143,12 @@ public class SalesOrderDao implements GenericDao<SalesOrder> {
 	@Override
 	public int update(SalesOrder salesOrder) throws SQLException {
 		String sql = "update sales_order set discount = ?, set total_nett = ?, set payment_method = ?,"
-				+ "set status = ?, table_no = ? where id = ?";
+				+ "set status = ?, table_no = ?, is_active = 'false' where id = ?";
 		int result = run.update(sql,salesOrder.getDiscount(),salesOrder.getTotalNett(),
-				salesOrder.getPaymentMethod(),salesOrder.getStatus(),salesOrder.getTableNo(),salesOrder.getId());
+				salesOrder.getPaymentMethod(),salesOrder.getStatus(),salesOrder.getTableNo(),salesOrder.getId(),salesOrder.getIsActive());
 		System.out.println(result+" row(s) updated");
 		return result;
 	}
+	
+
 }
