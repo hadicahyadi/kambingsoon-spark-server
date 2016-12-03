@@ -2,7 +2,13 @@ package com.curiouslabs.api;
 
 import static spark.Spark.*;
 
+import java.io.File;
+import java.io.FileOutputStream;
+import java.text.DateFormat;
+import java.text.SimpleDateFormat;
 import java.util.Collections;
+import java.util.Date;
+import java.util.HashMap;
 import java.util.Map;
 
 import spark.Request;
@@ -12,8 +18,16 @@ import spark.Route;
 import com.curiouslabs.dao.SalesOrderDao;
 import com.curiouslabs.model.SalesOrder;
 import com.curiouslabs.model.SalesOrderDetail;
+import com.curiouslabs.util.Datasource;
 import com.google.gson.Gson;
+import com.google.gson.GsonBuilder;
 import com.pusher.rest.Pusher;
+
+import net.sf.jasperreports.engine.JasperCompileManager;
+import net.sf.jasperreports.engine.JasperExportManager;
+import net.sf.jasperreports.engine.JasperFillManager;
+import net.sf.jasperreports.engine.JasperPrint;
+import net.sf.jasperreports.engine.JasperReport;
 
 public class SalesOrderApi extends GenericApi {
 	
@@ -48,10 +62,23 @@ public class SalesOrderApi extends GenericApi {
 			@Override
 			public Object handle(Request request, Response response) throws Exception {
 				System.out.println("[REQUEST BODY] - "+request.body());
-				SalesOrder salesOrder = gson.fromJson(request.body(), SalesOrder.class);
+				SalesOrder salesOrder = null;
 				int result = 0;
+				Gson gsonSalesOrder = new GsonBuilder().setDateFormat("MMM dd, yyyy").create();
 				try{
+					salesOrder = gsonSalesOrder.fromJson(request.body(), SalesOrder.class);
 					result = salesOrderDao.update(salesOrder);
+					Map<String,Object> mapParam = new HashMap<String,Object>();
+					mapParam.put("table", salesOrder.getTableNo());
+					JasperReport report = JasperCompileManager.compileReport("C:\\Users\\Paybill\\Desktop\\struct.jrxml");
+		            JasperPrint print = JasperFillManager.fillReport(report, mapParam, Datasource.getConnection().getConnection());
+		            DateFormat df = new SimpleDateFormat("yyyyMMdd_HH_mm_ss");
+		            String filename = "struct_"+df.format(new Date());
+		            File pdf = File.createTempFile(filename, ".pdf");
+		            response.header("Content-Disposition", String.format("attachment; filename="+filename));
+		            response.type("application/pdf");
+		            JasperExportManager.exportReportToPdfStream(print,response.raw().getOutputStream());
+		            
 				}catch(Exception e){
 					e.printStackTrace();
 				}

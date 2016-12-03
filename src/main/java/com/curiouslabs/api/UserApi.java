@@ -10,7 +10,10 @@ import spark.Route;
 
 import static spark.Spark.*;
 
+import java.util.ArrayList;
+import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
 
 public class UserApi extends GenericApi{
 	
@@ -34,7 +37,12 @@ public class UserApi extends GenericApi{
 
 			@Override
 			public Object handle(Request requset, Response response) throws Exception {
-				List<User> result = userDao.getAll();
+				List<Map<String,Object>> result = new ArrayList<Map<String,Object>>();
+				try{
+					result = userDao.getAllUser();
+				}catch(Exception e){
+					e.printStackTrace();
+				}
 				return gson.toJson(result);
 			}
 		});
@@ -54,13 +62,19 @@ public class UserApi extends GenericApi{
 
 			@Override
 			public Object handle(Request request, Response arg1) throws Exception {
-				String username = request.queryParams("username");
-				String password = request.queryParams("password");
-				User user = userDao.getByUsernamePassword(username, password);
-				if(user == null){
+				Map<String,Object> mapResult = new HashMap<String,Object>();
+				try{
+					String username = request.queryParams("username");
+					String password = request.queryParams("password");
+					mapResult = userDao.getByUsernamePassword(username, password);
+				}catch(Exception e){
+					e.printStackTrace();
+				}
+				
+				if(mapResult == null){
 					return "{\"result\":\"FAILED\"}";
 				}
-				return user;
+				return "{\"result\":"+gson.toJson(mapResult)+"}";
 			}
 			
 		});

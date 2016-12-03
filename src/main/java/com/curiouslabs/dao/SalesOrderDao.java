@@ -127,11 +127,17 @@ public class SalesOrderDao implements GenericDao<SalesOrder> {
 
 	@Override
 	public int update(SalesOrder salesOrder) throws SQLException {
-		String sql = "update sales_order set discount = ?, set total_nett = ?, set payment_method = ?,"
-				+ "set status = ?, table_no = ? where id = ?";
-		int result = run.update(sql,salesOrder.getDiscount(),salesOrder.getTotalNett(),
-				salesOrder.getPaymentMethod(),salesOrder.getStatus(),salesOrder.getTableNo(),salesOrder.getId());
-		System.out.println(result+" row(s) updated");
+		int result = 0;
+		try{
+			String sql = "update sales_order set discount = ?, total_nett = ?, payment_method = ?,"
+					+ "status = ?,  table_no = ? where id = ?";
+			result = run.update(sql,salesOrder.getDiscount(),salesOrder.getTotalNett(),
+					salesOrder.getPaymentMethod(),salesOrder.getStatus(),salesOrder.getTableNo(),salesOrder.getId());
+			System.out.println(result+" row(s) updated");
+		}catch(Exception e){
+			e.printStackTrace();
+		}
+		
 		return result;
 	}
 }
