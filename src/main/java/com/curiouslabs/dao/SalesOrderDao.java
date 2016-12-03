@@ -148,7 +148,7 @@ public class SalesOrderDao implements GenericDao<SalesOrder> {
 			String sql = "update sales_order set discount = ?, total_nett = ?, payment_method = ?,"
 					+ "status = ?,  table_no = ?, is_active = 0 where id = ?";
 			result = run.update(sql,salesOrder.getDiscount(),salesOrder.getTotalNett(),
-					salesOrder.getPaymentMethod(),salesOrder.getStatus(),salesOrder.getTableNo(),salesOrder.getId(),salesOrder.getIsActive());
+					salesOrder.getPaymentMethod(),salesOrder.getStatus(),salesOrder.getTableNo(),salesOrder.getId());
 			System.out.println(result+" row(s) updated");
 		}catch(Exception e){
 			e.printStackTrace();
