@@ -13,6 +13,7 @@ public class SalesOrder extends BaseModel{
 		private BigDecimal totalNett;
 		private String tableNo;
 		private String status;
+		private Boolean isActive;
 		private List<SalesOrderDetail> orders;
 		
 		public String getStatus() {
@@ -62,6 +63,12 @@ public class SalesOrder extends BaseModel{
 		}
 		public void setTableNo(String tableNo) {
 			this.tableNo = tableNo;
+		}
+		public Boolean getIsActive() {
+			return isActive;
+		}
+		public void setIsActive(Boolean isActive) {
+			this.isActive = isActive;
 		}
 		
 		

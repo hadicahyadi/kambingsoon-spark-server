@@ -45,6 +45,7 @@ public class SalesOrderDao implements GenericDao<SalesOrder> {
 		return update;
 		
 	}
+	
 
 	@Override
 	public List<SalesOrder> getAll() {
@@ -60,6 +61,21 @@ public class SalesOrderDao implements GenericDao<SalesOrder> {
 		}
 		return results;
 		 
+	}
+	
+	
+	public List<String> getTableActive()
+	{
+		String sql = "select table_no from sales_order where is_active = 1";
+		List<String> list = null;
+		List results = null;
+		try{
+			results = (List) run.query(sql, new MapListHandler());
+			list = results;
+		}catch (SQLException e){
+			e.printStackTrace();
+		}
+		return results;
 	}
 	
 	public SalesOrder getByTable(String table){
@@ -140,4 +156,6 @@ public class SalesOrderDao implements GenericDao<SalesOrder> {
 		
 		return result;
 	}
+	
+
 }
