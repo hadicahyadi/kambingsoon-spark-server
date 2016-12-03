@@ -20,11 +20,7 @@ import spark.Request;
 import spark.Response;
 import spark.Spark;
 
-/**
- * @author hadi
- *
- * Aug 14, 2016
- */
+
 public class Main {
 	
 	// Enables CORS on requests. This method is an initialization method and should be called once.
@@ -86,7 +82,7 @@ public class Main {
 		new MenuApi("menu");
 		new SalesOrderApi("salesOrder");
 		new WaitingListApi("waitingList");
-		new UserApi("User");
+		new UserApi("user");
 		
 		get("/", (request,response) -> "Hello World");
 	}
