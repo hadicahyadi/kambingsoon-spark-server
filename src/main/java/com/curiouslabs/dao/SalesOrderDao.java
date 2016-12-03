@@ -45,6 +45,7 @@ public class SalesOrderDao implements GenericDao<SalesOrder> {
 		return update;
 		
 	}
+	
 
 	@Override
 	public List<SalesOrder> getAll() {
@@ -63,7 +64,7 @@ public class SalesOrderDao implements GenericDao<SalesOrder> {
 	}
 	
 	
-	public List<String> tableIsActive(String table)
+	public List<String> getTableActive()
 	{
 		String sql = "select table_no from sales_order where is_active = 1";
 		List<String> list = null;
@@ -142,11 +143,17 @@ public class SalesOrderDao implements GenericDao<SalesOrder> {
 
 	@Override
 	public int update(SalesOrder salesOrder) throws SQLException {
-		String sql = "update sales_order set discount = ?, set total_nett = ?, set payment_method = ?,"
-				+ "set status = ?, table_no = ?, is_active = 'false' where id = ?";
-		int result = run.update(sql,salesOrder.getDiscount(),salesOrder.getTotalNett(),
-				salesOrder.getPaymentMethod(),salesOrder.getStatus(),salesOrder.getTableNo(),salesOrder.getId(),salesOrder.getIsActive());
-		System.out.println(result+" row(s) updated");
+		int result = 0;
+		try{
+			String sql = "update sales_order set discount = ?, total_nett = ?, payment_method = ?,"
+					+ "status = ?,  table_no = ? where id = ?";
+			result = run.update(sql,salesOrder.getDiscount(),salesOrder.getTotalNett(),
+					salesOrder.getPaymentMethod(),salesOrder.getStatus(),salesOrder.getTableNo(),salesOrder.getId());
+			System.out.println(result+" row(s) updated");
+		}catch(Exception e){
+			e.printStackTrace();
+		}
+		
 		return result;
 	}
 	
