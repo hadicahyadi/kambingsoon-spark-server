@@ -1,0 +1,173 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<jasperReport xmlns="http://jasperreports.sourceforge.net/jasperreports" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://jasperreports.sourceforge.net/jasperreports http://jasperreports.sourceforge.net/xsd/jasperreport.xsd" name="struct" language="groovy" pageWidth="396" pageHeight="612" columnWidth="356" leftMargin="20" rightMargin="20" topMargin="20" bottomMargin="20" uuid="34ca07b1-cc6f-428b-9ca6-0e1d061ccb07">
+	<property name="ireport.zoom" value="1.0"/>
+	<property name="ireport.x" value="0"/>
+	<property name="ireport.y" value="0"/>
+	<parameter name="table" class="java.lang.String"/>
+	<queryString>
+		<![CDATA[select * from sales_order_detail as detail
+join menu on detail.menu_id = menu.id
+join sales_order salesorder on detail.sales_order_id = salesorder.id
+where salesorder.status = 'PAID' and table_no = $P{table}]]>
+	</queryString>
+	<field name="sales_order_id" class="java.lang.Integer">
+		<fieldDescription><![CDATA[]]></fieldDescription>
+	</field>
+	<field name="menu_id" class="java.lang.Integer">
+		<fieldDescription><![CDATA[]]></fieldDescription>
+	</field>
+	<field name="qty" class="java.lang.Integer">
+		<fieldDescription><![CDATA[]]></fieldDescription>
+	</field>
+	<field name="subtotal" class="java.math.BigDecimal">
+		<fieldDescription><![CDATA[]]></fieldDescription>
+	</field>
+	<field name="id" class="java.lang.Long">
+		<fieldDescription><![CDATA[]]></fieldDescription>
+	</field>
+	<field name="parent_id" class="java.lang.Integer">
+		<fieldDescription><![CDATA[]]></fieldDescription>
+	</field>
+	<field name="menu_name" class="java.lang.String">
+		<fieldDescription><![CDATA[]]></fieldDescription>
+	</field>
+	<field name="image_url" class="java.lang.String">
+		<fieldDescription><![CDATA[]]></fieldDescription>
+	</field>
+	<field name="price" class="java.math.BigDecimal">
+		<fieldDescription><![CDATA[]]></fieldDescription>
+	</field>
+	<field name="description" class="java.lang.String">
+		<fieldDescription><![CDATA[]]></fieldDescription>
+	</field>
+	<field name="category_id" class="java.lang.Integer">
+		<fieldDescription><![CDATA[]]></fieldDescription>
+	</field>
+	<field name="transaction_date" class="java.sql.Timestamp">
+		<fieldDescription><![CDATA[]]></fieldDescription>
+	</field>
+	<field name="payment_method" class="java.lang.String">
+		<fieldDescription><![CDATA[]]></fieldDescription>
+	</field>
+	<field name="total_gross" class="java.math.BigDecimal">
+		<fieldDescription><![CDATA[]]></fieldDescription>
+	</field>
+	<field name="discount" class="java.lang.Integer">
+		<fieldDescription><![CDATA[]]></fieldDescription>
+	</field>
+	<field name="total_nett" class="java.math.BigDecimal">
+		<fieldDescription><![CDATA[]]></fieldDescription>
+	</field>
+	<field name="table_no" class="java.lang.String">
+		<fieldDescription><![CDATA[]]></fieldDescription>
+	</field>
+	<field name="status" class="java.lang.String">
+		<fieldDescription><![CDATA[]]></fieldDescription>
+	</field>
+	<background>
+		<band splitType="Stretch"/>
+	</background>
+	<title>
+		<band height="49" splitType="Stretch">
+			<staticText>
+				<reportElement x="0" y="0" width="356" height="20" uuid="891185a6-a1bf-4dc0-a48c-08c187374edf"/>
+				<textElement textAlignment="Center">
+					<font size="12"/>
+				</textElement>
+				<text><![CDATA[KAMBINGSOON RESTO & CAFE]]></text>
+			</staticText>
+			<staticText>
+				<reportElement x="0" y="20" width="356" height="20" uuid="be146fcf-8824-49b9-bbd6-f56187af24f2"/>
+				<textElement textAlignment="Center"/>
+				<text><![CDATA[Jl. Ir.H.Djuanda No.123]]></text>
+			</staticText>
+		</band>
+	</title>
+	<pageHeader>
+		<band height="49" splitType="Stretch">
+			<textField pattern="dd/MM/yyyy HH.mm.ss">
+				<reportElement x="256" y="0" width="100" height="20" uuid="ba519fb7-9de9-4cdc-a3bf-022bcf00cf3e"/>
+				<textFieldExpression><![CDATA[new java.util.Date()]]></textFieldExpression>
+			</textField>
+			<staticText>
+				<reportElement x="0" y="0" width="100" height="20" uuid="3ccc5159-3de7-482d-8340-ef70d2489ab8"/>
+				<text><![CDATA[Transaction Date:]]></text>
+			</staticText>
+			<staticText>
+				<reportElement x="0" y="29" width="100" height="20" uuid="d9437517-6392-4ea6-b810-39c3572a4b23"/>
+				<text><![CDATA[Items:]]></text>
+			</staticText>
+		</band>
+	</pageHeader>
+	<detail>
+		<band height="22" splitType="Stretch">
+			<textField>
+				<reportElement x="0" y="0" width="161" height="20" uuid="64dccbec-6ac6-43c0-a249-5bbf18adb268"/>
+				<textFieldExpression><![CDATA[$F{menu_name}]]></textFieldExpression>
+			</textField>
+			<textField pattern="#,##0.00">
+				<reportElement x="193" y="0" width="89" height="20" uuid="346c39ae-3986-4c0a-8c73-989534cc0236"/>
+				<textFieldExpression><![CDATA[$F{price}]]></textFieldExpression>
+			</textField>
+			<textField>
+				<reportElement x="143" y="0" width="32" height="20" uuid="7f67cc06-30ff-4b95-a74f-ca6afe3be5a5"/>
+				<textFieldExpression><![CDATA[$F{qty}]]></textFieldExpression>
+			</textField>
+			<textField pattern="#,##0.00">
+				<reportElement x="282" y="0" width="74" height="20" uuid="65d6ad07-83e9-431b-a159-c960f9695d2e"/>
+				<textFieldExpression><![CDATA[$F{subtotal}]]></textFieldExpression>
+			</textField>
+			<staticText>
+				<reportElement x="175" y="0" width="18" height="20" uuid="70c5f704-3034-4721-b0c9-9121a9d8f151"/>
+				<textElement textAlignment="Right"/>
+				<text><![CDATA[@]]></text>
+			</staticText>
+		</band>
+	</detail>
+	<columnFooter>
+		<band height="61" splitType="Stretch">
+			<staticText>
+				<reportElement x="193" y="0" width="63" height="20" uuid="d3787f2b-5ce7-45a2-adfd-38c88ce0ed4a"/>
+				<textElement textAlignment="Right"/>
+				<text><![CDATA[Total:]]></text>
+			</staticText>
+			<textField pattern="#,##0.00">
+				<reportElement x="282" y="0" width="74" height="20" uuid="2314489a-9d73-46e8-83fd-f5556a48038c"/>
+				<textFieldExpression><![CDATA[$F{total_gross}]]></textFieldExpression>
+			</textField>
+			<staticText>
+				<reportElement x="193" y="20" width="63" height="20" uuid="5360cbac-c3b4-4265-9bc3-75adb8f5f4f0"/>
+				<textElement textAlignment="Right"/>
+				<text><![CDATA[Discount:]]></text>
+			</staticText>
+			<staticText>
+				<reportElement x="193" y="40" width="63" height="20" uuid="c11c1e49-ebaa-4125-b303-02fc45be745a"/>
+				<textElement textAlignment="Right"/>
+				<text><![CDATA[Grand Total:]]></text>
+			</staticText>
+			<textField pattern="#,##0.00">
+				<reportElement x="282" y="40" width="74" height="20" uuid="a0f7c304-fdd8-4164-bc9e-ce9a925e2be5"/>
+				<textFieldExpression><![CDATA[$F{total_nett}]]></textFieldExpression>
+			</textField>
+			<textField>
+				<reportElement x="282" y="20" width="47" height="20" uuid="a8ea2570-55d9-4379-9fbc-fc7efc3b4013"/>
+				<textFieldExpression><![CDATA[$F{discount}]]></textFieldExpression>
+			</textField>
+			<staticText>
+				<reportElement x="329" y="20" width="18" height="20" uuid="2afcc9db-fdab-40fe-bbc7-5d5fdcdb92f7"/>
+				<text><![CDATA[%]]></text>
+			</staticText>
+		</band>
+	</columnFooter>
+	<pageFooter>
+		<band height="54" splitType="Stretch">
+			<staticText>
+				<reportElement x="0" y="0" width="356" height="20" uuid="87e0616e-96b2-4f26-8d36-6451051951f3"/>
+				<textElement textAlignment="Center">
+					<font isBold="false"/>
+				</textElement>
+				<text><![CDATA[PLEASE COME AGAIN & THANK YOU :)]]></text>
+			</staticText>
+		</band>
+	</pageFooter>
+</jasperReport>
