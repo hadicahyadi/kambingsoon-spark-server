@@ -84,8 +84,8 @@ public class SalesOrderApi extends GenericApi {
 		            DateFormat df = new SimpleDateFormat("yyyyMMdd_HH_mm_ss");
 		            String filename = "struct_"+df.format(new Date());
 		            File pdf = File.createTempFile(filename, ".pdf");
-//		            response.header("Content-Disposition", String.format("attachment; filename="+filename));
-//		            response.type("application/pdf");
+		            response.header("Content-Disposition", String.format("attachment; filename="+filename));
+		            response.type("application/pdf");
 		            JasperExportManager.exportReportToPdfStream(print,response.raw().getOutputStream());
 //		            response. ("{\"result\":"+filename+"}");
 
