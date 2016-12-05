@@ -40,6 +40,7 @@ public class Main {
 
 	        return "OK";
 	    });
+	    
 
 	    before((request, response) -> {
 	        response.header("Access-Control-Allow-Origin", origin);
@@ -53,10 +54,10 @@ public class Main {
 	private static final HashMap<String, String> corsHeaders = new HashMap<String, String>();
 
 	static {
-		corsHeaders.put("Access-Control-Allow-Methods", "GET,PUT,POST,DELETE");
+		corsHeaders.put("Access-Control-Allow-Methods", "GET,PUT,POST,DELETE,OPTIONS");
 		corsHeaders.put("Access-Control-Allow-Origin", "*");
 		corsHeaders.put("Access-Control-Allow-Headers",
-				"Content-Disposition,Content-Type,Authorization,X-Requested-With,Content-Length,Accept,Origin,");
+				"Content-Disposition,Content-Type,Authorization,X-Requested-With,Content-Length,Accept,Origin");
 		corsHeaders.put("Access-Control-Allow-Credentials", "true");
 	}
 
@@ -69,12 +70,28 @@ public class Main {
 				});
 			}
 		};
+//		Spark.before(filter);
+		
+		options("/*", (request, response) -> {
+
+	        String accessControlRequestHeaders = request.headers("Access-Control-Request-Headers");
+	        if (accessControlRequestHeaders != null) {
+	            response.header("Access-Control-Allow-Headers", accessControlRequestHeaders);
+	        }
+
+	        String accessControlRequestMethod = request.headers("Access-Control-Request-Method");
+	        if (accessControlRequestMethod != null) {
+	            response.header("Access-Control-Allow-Methods", accessControlRequestMethod);
+	        }
+
+	        return "OK";
+	    });
 		Spark.after(filter);
 	}
 
 	public static void main(String args[]){
 		port(8080); // Spark will run on port 8080
-		enableCORS("*", "GET,PUT,POST", "Content-Type, Accept, X-Requested-With, remember-me,Content-Disposition");
+		enableCORS("*", "GET,PUT,POST,OPTIONS", "Content-Type, Accept,Origin, X-Requested-With, remember-me,Content-Disposition");
 //		apply();
 		
 		// --- Add all api constructor here

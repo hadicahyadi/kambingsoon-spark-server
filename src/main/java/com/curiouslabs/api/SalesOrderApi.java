@@ -4,14 +4,29 @@ import static spark.Spark.*;
 
 import java.io.File;
 import java.io.FileOutputStream;
+import java.io.IOException;
+import java.net.URI;
+import java.nio.charset.StandardCharsets;
+import java.nio.file.FileSystem;
+import java.nio.file.Files;
+import java.nio.file.LinkOption;
+import java.nio.file.OpenOption;
+import java.nio.file.Path;
+import java.nio.file.WatchKey;
+import java.nio.file.WatchService;
+import java.nio.file.WatchEvent.Kind;
+import java.nio.file.WatchEvent.Modifier;
 import java.text.DateFormat;
 import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.Collections;
 import java.util.Date;
 import java.util.HashMap;
+import java.util.Iterator;
 import java.util.List;
 import java.util.Map;
+
+import javax.servlet.http.HttpServletResponse;
 
 import spark.Request;
 import spark.Response;
@@ -67,6 +82,7 @@ public class SalesOrderApi extends GenericApi {
 			public Object handle(Request request, Response response)
 					throws Exception {
 				System.out.println("[REQUEST BODY] - " + request.body());
+				HttpServletResponse raw = response.raw();
 				SalesOrder salesOrder = null;
 				int result = 0;
 				Gson gsonSalesOrder = new GsonBuilder().setDateFormat(
@@ -74,7 +90,7 @@ public class SalesOrderApi extends GenericApi {
 				try {
 					salesOrder = gsonSalesOrder.fromJson(request.body(),
 							SalesOrder.class);
-					result = salesOrderDao.update(salesOrder);
+//					result = salesOrderDao.update(salesOrder);
 					Map<String, Object> mapParam = new HashMap<String, Object>();
 					mapParam.put("table", salesOrder.getTableNo());
 					ClassLoader classLoader = getClass().getClassLoader();
@@ -84,17 +100,15 @@ public class SalesOrderApi extends GenericApi {
 		            DateFormat df = new SimpleDateFormat("yyyyMMdd_HH_mm_ss");
 		            String filename = "struct_"+df.format(new Date());
 		            File pdf = File.createTempFile(filename, ".pdf");
-		            response.header("Content-Disposition", String.format("attachment; filename="+filename));
-		            response.type("application/pdf");
-		            JasperExportManager.exportReportToPdfStream(print,response.raw().getOutputStream());
-//		            response. ("{\"result\":"+filename+"}");
+		            raw.setHeader("Content-Disposition", "attachment; filename=" + filename+".pdf"); 
+		            response.header("Access-Control-Expose-Headers", "Content-Disposition");
+		            JasperExportManager.exportReportToPdfStream(print, raw.getOutputStream());
 
 				}catch(Exception e){
-
 					e.printStackTrace();
 				}
 
-				return "{\"result\":\"SUCCESS\"}";
+				return raw.getOutputStream();
 			}
 		});
 
